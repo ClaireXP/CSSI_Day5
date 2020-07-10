@@ -13,21 +13,28 @@ constrain,
 width,
 pixels,
 image,
+createSlider,
 */
 
 let img;
+let light;
+let width = 500;
 
 function preload() {
   img = loadImage("https://3.bp.blogspot.com/-9MNTmmt8hZg/UpiPsuxK8aI/AAAAAAAAAsM/Kl3N1zR8g74/s1600/256x256+icon.png");
 }
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(width, 500);
   img.loadPixels();
   loadPixels();
   
   image(img, 0, 0);
+  img.resize(500, 500);
   
+  //Create slider to adjust width of "flashlight"
+  light = createSlider(1,20,5);
+  light.position(width/2-20,36);
 }
 
 function draw() {
@@ -39,7 +46,7 @@ function draw() {
       let r, g, b;
       r = img.pixels[loc];
       // Calculate an amount to change brightness based on proximity to the mouse
-      let maxdist = 50;
+      let maxdist = light.value()*10;
       let d = dist(x, y, mouseX, mouseY);
       let adjustbrightness = (255 * (maxdist - d)) / maxdist;
       r += adjustbrightness;
