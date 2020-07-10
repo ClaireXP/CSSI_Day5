@@ -18,19 +18,19 @@ createSlider,
 
 let img;
 let light;
-let width = 500;
+let width = 300;
 
 function preload() {
   img = loadImage("https://3.bp.blogspot.com/-9MNTmmt8hZg/UpiPsuxK8aI/AAAAAAAAAsM/Kl3N1zR8g74/s1600/256x256+icon.png");
 }
 
 function setup() {
-  createCanvas(width, 500);
+  createCanvas(width, width);
   img.loadPixels();
   loadPixels();
   
   image(img, 0, 0);
-  img.resize(500, 500);
+  img.resize(width, width);
   
   //Create slider to adjust width of "flashlight"
   light = createSlider(1,20,5);
