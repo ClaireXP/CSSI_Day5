@@ -11,19 +11,23 @@ mouseX,
 mouseY,
 constrain,
 width,
-pixels
+pixels,
+image,
 */
 
-var img;
+let img;
 
 function preload() {
-  img = loadImage("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.123rf.com%2Fphoto_75631811_modern-abstract-relief-painting-art-pattern-on-white-background-opposites-fire-and-ice-hot-and-cold-.html&psig=AOvVaw2HoQKGTnCErv7CggTrEmia&ust=1594489169445000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJi6i5mdw-oCFQAAAAAdAAAAABAP");
+  img = loadImage("https://3.bp.blogspot.com/-9MNTmmt8hZg/UpiPsuxK8aI/AAAAAAAAAsM/Kl3N1zR8g74/s1600/256x256+icon.png");
 }
 
 function setup() {
   createCanvas(400, 400);
   img.loadPixels();
   loadPixels();
+  
+  image(img, 0, 0);
+  
 }
 
 function draw() {
