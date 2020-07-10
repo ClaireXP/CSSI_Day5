@@ -14,6 +14,9 @@ width,
 pixels,
 image,
 createSlider,
+noStroke,
+rect,
+text
 */
 
 let img;
@@ -36,45 +39,45 @@ function setup() {
   img.resize(w, w);
 
   //Create slider to adjust width of "flashlight"
-  light = createSlider(1, 20, 5);
+  light = createSlider(1, 20, 3);
   light.position(w / 2 - 20, 36);
 }
 
 function draw() {
-  for (let x = 0; x < img.width; x++) {
-    for (let y = 0; y < img.height; y++) {
-      // Calculate the 1D location from a 2D grid
-      let loc = (x + y * img.width) * 4;
+  if (color == false) {
+    for (let x = 0; x < img.width; x++) {
+      for (let y = 0; y < img.height; y++) {
+        // Calculate the 1D location from a 2D grid
+        let loc = (x + y * img.width) * 4;
 
-      // Get the R,G,B values from image
-      let r, g, b;
-      r = img.pixels[loc];
+        // Get the R,G,B values from image
+        let r, g, b;
+        r = img.pixels[loc];
 
-      // Calculate an amount to change brightness based on proximity to the mouse
-      let maxdist = light.value() * 10;
-      let d = dist(x, y, mouseX, mouseY);
-      let adjustbrightness = (255 * (maxdist - d)) / maxdist;
-      r += adjustbrightness;
+        // Calculate an amount to change brightness based on proximity to the mouse
+        let maxdist = light.value() * 10;
+        let d = dist(x, y, mouseX, mouseY);
+        let adjustbrightness = (255 * (maxdist - d)) / maxdist;
+        r += adjustbrightness;
 
-      // Constrain RGB to make sure they are within 0-255 color range
-      if(color){
-        r = constrain(r, g, b);
-      }else{
-      r = constrain(r, 0, 255);
+        // Constrain RGB to make sure they are within 0-255 color range
+        r = constrain(r, 0, 255);
+
+        // Make a new color and set pixel in the window
+        //color c = color(r, g, b);
+        let pixloc = (y * width + x) * 4;
+        pixels[pixloc] = r;
+        pixels[pixloc + 1] = r;
+        pixels[pixloc + 2] = r;
+
+        pixels[pixloc + 3] = 255;
       }
-
-      // Make a new color and set pixel in the window
-      //color c = color(r, g, b);
-      let pixloc = (y * width + x) * 4;
-      pixels[pixloc] = r;
-      pixels[pixloc + 1] = r;
-      pixels[pixloc + 2] = r;
-
-      pixels[pixloc + 3] = 255;
     }
+    updatePixels();
+  }else{
+    image(img,0,0)
+    img.resize(w, w);
   }
-  updatePixels();
-
   noStroke();
   rect(0, 0, 50, 50);
 
@@ -84,11 +87,13 @@ function draw() {
 function mouseClicked() {
   if (mouseX > 0 && mouseX < 50) {
     if (mouseY > 0 && mouseY < 50) {
-      if(color){
+      if (color) {
         color = false;
-      }else{
+      } else {
         color = true;
       }
     }
   }
 }
+
+//IT WORKS NOW
